@@ -3,7 +3,10 @@ import pkg from './package'
 
 export default {
   mode: 'spa',
-
+  server: {
+    host: '0.0.0.0',
+    port: 5000
+  }
   /*
   ** Headers of the page
   */
