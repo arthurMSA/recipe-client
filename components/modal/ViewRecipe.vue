@@ -20,9 +20,9 @@
       <v-card-text>
         <v-textarea
           :value="recipe.content"
-          disabled
-          auto-grow
-          no-resize
+           auto-grow
+           solo
+           disabled
         >
         </v-textarea>
       </v-card-text>
