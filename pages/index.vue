@@ -24,16 +24,13 @@
           v-for="(recipe, index) in recipes"
           :key="index"
           class="my-2"
-          :title="recipe.title"
-          :content="recipe.content"
-          @click="viewRecipe(recipe)"
+          :recipe="recipe"
           @delete="deleteRecipe(recipe)"
-          @edit="editModal(recipe)"
+          @edit="editRecipe(recipe)"
         />
       </v-flex>
     </v-layout>
     <!-- <modal-view :show="showModalView" :recipe="recipeToView" /> -->
-    <modal-edit :show="showModalEdit" :recipe="recipeToEdit" @edit="editRecipe($event)"/>
   </v-container>
 </template>
 
@@ -90,10 +87,6 @@ export default {
     viewRecipe(recipe) {
       this.recipeToView = recipe
       this.showModalView = true
-    },
-    editModal(recipe) {
-      this.showModalEdit = true
-      this.recipeToEdit = recipe
     },
     async search(value) {
       this.loaded = false
