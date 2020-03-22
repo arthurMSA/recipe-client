@@ -1,35 +1,41 @@
 <template>
-	<v-card @click="$emit('click', $event)" class="card-recipe" mix-height="200px">
+	<v-card @click="showView = true" class="card-recipe" mix-height="200px">
 		<v-card-title class="font-weight-bold  text-uppercase d-flex justify-space-between">
 			<div class="align-end">
-				{{ title }}
+				{{ recipe.title }}
 			</div>
 			<div class="btn-icon">
 				<v-btn class="btn-delete" icon @click="$emit('delete')">
 					<v-icon>delete_outline</v-icon>
 				</v-btn>
-				<v-btn class="btn-edit" icon @click="$emit('edit')">
-					<v-icon>edit</v-icon>
-				</v-btn>
+				<edit-modal class="btn-edit" :recipe="recipe" @edit="$emit('edit', $event)"/>
 			</div>
 		</v-card-title>
 		<div class="divider mx-auto"></div>
 		<v-card-text>
-			{{ content }}
+			{{ recipe.content }}
 		</v-card-text>
+		<view-modal :show="showView" @close="showView = !showView" :recipe="recipe"></view-modal>
 	</v-card>
 </template>
 <script>
+import EditModal from '@/components/modal/EditRecipe.vue'
+import ViewModal from '@/components/modal/ViewRecipe.vue'
+
 export default {
+	components: {
+		EditModal,
+		ViewModal
+	},
 	props: {
-		title: {
-			type: String,
-			required: false,
-			default: "Sem título"
-		},
-		content: {
-			type: String,
+		recipe: {
+			type: Object,
 			required: true
+		}
+  },
+	data() {
+		return {
+			showView: false
 		}
 	}
 }
