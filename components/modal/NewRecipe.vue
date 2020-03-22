@@ -20,7 +20,7 @@
 				<v-card-text>
 					<v-text-field
 						v-model="recipe.title"
-						placeholder="Titulo da receita"
+						placeholder="Nome da receita"
 						solo
 					/>
 					<v-textarea

@@ -4,8 +4,18 @@
 		v-model="show"
 	>
     <v-card>
-      <v-card-title class="title">
-        {{recipe.title}}
+      <v-card-title class="title d-flex">
+        <v-flex>
+          {{recipe.title}}
+        </v-flex>
+        <v-flex style="text-align: right">
+          <v-btn
+           @click="$emit('close', !show)"
+           icon
+          >
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-flex>
       </v-card-title>
       <v-card-text>
         <v-textarea
@@ -22,14 +32,18 @@
 <script>
 export default {
   props: {
+    recipe: {
+      type: Object,
+      required: true,
+      default: {
+        title: null,
+        content: null
+      }
+    },
     show: {
       type: Boolean,
       required: true,
-      default: true
-    },
-    recipe: {
-      type: Object,
-      required: true
+      default: false
     }
   }
 }

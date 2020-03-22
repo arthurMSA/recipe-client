@@ -1,8 +1,18 @@
 <template>
 	<v-dialog
 		max-width="500px"
-		v-model="show"
+		v-model="dialog"
 	>
+	   <template v-slot:activator="{ on }">
+        <v-btn
+          v-on="on"
+					class="mb-2"
+					flat
+					icon
+        >
+				<v-icon>edit</v-icon>
+        </v-btn>
+      </template>
 			<v-card>
 				<v-card-title class="title">
 					EDITAR RECEITAR
@@ -45,39 +55,29 @@
 <script>
 export default {
 	props: {
-    show: {
-      type: Boolean,
-      required: true,
-      default: true
-    },
     recipe: {
       type: Object,
-      required: true
+      required: true,
+			default: {
+				title: null,
+				content: null
+			}
     }
   },
 	data() {
 		return {
-			show: null,
-			recipe: {
-				title: null,
-				content: null
-			}
+			dialog: null
 		}
 	},
 	methods: {
-		clean() {
-			this.recipe.title = ""
-			this.recipe.content = ""
-		},
 		cancel() {
-			this.clean()
+			this.dialog = false
 		},
 		async save(recipe) {
 			recipe.title = recipe.title.toLowerCase()
-			recipe.content = recipe.content.toLowerCase()
 
 			await this.$emit('edit', recipe)
-			this.show = false
+			this.dialog = false
 		}
 	}
 }
