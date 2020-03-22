@@ -58,6 +58,11 @@ export default {
 			type: String,
 			required: false,
 			default: 'new'
+		},
+		confirm: {
+			type: Boolean,
+			required: true,
+			default: false
 		}
 	},
 	data() {
@@ -69,20 +74,31 @@ export default {
 			}
 		}
 	},
+	watch: {
+		show() {
+			if(this.show){
+				this.clean()
+			}
+		}
+	},
 	methods: {
 		clean() {
 			this.recipe.title = ""
 			this.recipe.content = ""
 		},
 		cancel() {
+			this.show = false
 			this.clean()
 		},
 		async save(recipe) {
-			recipe.title = recipe.title.toLowerCase()
-			recipe.content = recipe.content.toLowerCase()
+			if(recipe.title !== null && recipe.content !== null){
 
-			await this.$emit('create', recipe)
-			this.show = false
+			  recipe.title = recipe.title.toLowerCase()
+			  recipe.content = recipe.content.toLowerCase()
+
+			  await this.$emit('create', recipe)
+			  this.show = false
+			}
 		}
 	}
 }
